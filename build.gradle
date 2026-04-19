@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.10'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.intelligencehub'
+version = '1.0.0'
+description = 'Intelligence Hub - Technical Support Co-Pilot'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springAiVersion', "1.1.2")
+}
+
+dependencies {
+    // Spring Boot Web & Data
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+    
+    // Spring AI
+    //implementation 'org.springframework.ai:spring-ai-starter-openai'
+    implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+    implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
+    implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
+    implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
+    implementation 'org.springframework.ai:spring-ai-tika-document-reader'
+    implementation 'org.springframework.ai:spring-ai-transformers'
+    developmentOnly 'org.springframework.ai:spring-ai-spring-boot-docker-compose'
+
+    
+    // Database
+    runtimeOnly 'org.postgresql:postgresql'
+    
+    // Utilities
+    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
+    
+    // Logging
+    implementation 'ch.qos.logback:logback-classic'
+    
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+

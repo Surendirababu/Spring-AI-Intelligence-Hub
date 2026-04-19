@@ -1,0 +1,30 @@
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# Build
+build/
+.gradle/
+dist/
+target/
+
+# Environment
+.env
+.env.local
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
+/node_modules/
+*.jar
+*.war
+
+# Testing
+/coverage/
+.nyc_output
